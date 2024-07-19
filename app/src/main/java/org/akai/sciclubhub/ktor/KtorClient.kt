@@ -91,7 +91,7 @@ object KtorClient {
     }
 
     suspend fun HttpClient.register(email: String, password: String, username: String, firstName: String = "", lastName: String = "", discord: String = ""): Boolean? {
-        TODO("Unify return type")
+        //TODO("Unify return type")
         try {
             val response: HttpResponse = post(
                 urlString = "${pathBegin()}/${apiProperties.getProperty("subdirectory.register")}"
