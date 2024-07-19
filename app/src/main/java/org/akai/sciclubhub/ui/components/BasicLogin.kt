@@ -38,14 +38,16 @@ import org.akai.sciclubhub.ktor.KtorClient.login
 
 @Composable
 fun BasicLogin(
+    email: String,
+    onEmailChange: (String) -> Unit,
+    password: String,
+    onPasswordChange: (String) -> Unit,
     modifier: Modifier = Modifier,
     preferences: SharedPreferences? = null,
     client: HttpClient? = null,
     afterLoginSuccess: () -> Unit = {},
     forgotPasswordAction: () -> Unit = {}
 ){
-    var email by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
@@ -53,14 +55,14 @@ fun BasicLogin(
     ) {
         OutlinedEmailField(
             value = email,
-            onValueChange = { email = it }
+            onValueChange = onEmailChange
         )
 
         Spacer(modifier = Modifier.height(16.dp))
 
         OutlinedPasswordField(
             value = password,
-            onValueChange = { password = it }
+            onValueChange = onPasswordChange
         )
 
         Spacer(modifier = Modifier.height(12.dp))
@@ -143,5 +145,7 @@ fun BasicLogin(
 @Preview(showSystemUi = false, showBackground = false)
 @Composable
 fun LoginPreview() {
-    BasicLogin()
+    var email by remember { mutableStateOf("") }
+    var password by remember { mutableStateOf("") }
+    BasicLogin(email, { email = it }, password, { password = it })
 }
