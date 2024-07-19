@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -50,7 +51,18 @@ android {
 }
 
 dependencies {
+    implementation(libs.androidx.room.runtime)
+    annotationProcessor(libs.androidx.room.compiler)
+    ksp(libs.androidx.room.compiler)
+    implementation(libs.room.ktx)
+    implementation(libs.kotlinx.coroutines.android)
 
+    implementation(libs.androidx.preference.ktx)
+    implementation(libs.ktor.ktor.client.android)
+    implementation(libs.ktor.client.serialization)
+    implementation(libs.kotlinx.serialization.json)
+    implementation(libs.ktor.client.logging.jvm)
+    implementation(libs.androidx.material.icons.extended)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
