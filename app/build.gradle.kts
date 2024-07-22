@@ -56,7 +56,7 @@ dependencies {
     ksp(libs.androidx.room.compiler)
     implementation(libs.room.ktx)
     implementation(libs.kotlinx.coroutines.android)
-
+    implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.preference.ktx)
     implementation(libs.ktor.ktor.client.android)
     implementation(libs.ktor.client.serialization)
