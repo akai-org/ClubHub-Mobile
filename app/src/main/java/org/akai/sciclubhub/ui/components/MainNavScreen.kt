@@ -3,26 +3,24 @@ package org.akai.sciclubhub.ui.components
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import io.ktor.client.HttpClient
+import org.akai.sciclubhub.R
+import org.akai.sciclubhub.ktor.KtorClient
 
 @Composable
 fun MainNavScreen(
@@ -30,33 +28,23 @@ fun MainNavScreen(
     client: HttpClient,
     preferences: SharedPreferences
 ) {
-    Box(modifier = Modifier
-        .fillMaxSize()
-        .background(color = MaterialTheme.colorScheme.background)
+    val context = LocalContext.current
+    Scaffold(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(color = MaterialTheme.colorScheme.background),
+        bottomBar = {},
+        topBar = {}
     ) {
-        NavHost(navController = navController, startDestination = "home_view") {
-            composable("home_view") { }
-            composable("user_view") { }
-            composable("message_view") { }
-            composable("calendar_view") { }
+        NavHost(
+            navController = navController,
+            startDestination = stringResource(R.string.home_view_destination)
+        ) {
+            composable(context.getString(R.string.home_view_destination)) { }
+            composable(context.getString(R.string.user_account_view_destination)) { }
+            composable(context.getString(R.string.chat_view_destination)) { }
+            composable(context.getString(R.string.calendar_view_destination)) { }
         }
-        //top bar
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(50.dp)
-                .background(color = Color.Yellow)
-                .align(alignment = Alignment.TopStart)
-        ) {}
-
-            //bottom bar
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(50.dp)
-                .background(color = Color.Cyan)
-                .align(alignment = Alignment.BottomEnd)
-        )
     }
 }
 
@@ -65,11 +53,18 @@ fun MainNavScreen(
 fun MainNavScreenPreview() {
     val navController = rememberNavController()
     val context = LocalContext.current
-    val preferences by remember { mutableStateOf(context.getSharedPreferences("sign_in", Context.MODE_PRIVATE)) }
+    val preferences by rememberSaveable {
+        mutableStateOf(
+            context.getSharedPreferences(
+                context.getString(R.string.user_sign_in_preferences),
+                Context.MODE_PRIVATE
+            )
+        )
+    }
 
     MainNavScreen(
         navController = navController,
-        client = HttpClient(),
+        client = KtorClient.getClient(context.assets),
         preferences = preferences
     )
 
