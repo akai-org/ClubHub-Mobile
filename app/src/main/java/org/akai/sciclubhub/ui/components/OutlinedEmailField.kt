@@ -19,7 +19,7 @@ import org.akai.sciclubhub.R
 fun OutlinedEmailField(
     value: String,
     onValueChange: (String) -> Unit,
-    isError: Boolean = value.isNotBlank() && !value.matches(Regex(".+@.+\\..{2,6}")),
+    isError: Boolean = value.length < 8,
     trailingIcon: @Composable (() -> Unit)? = {
         Icon(
             imageVector = Icons.Rounded.Person,
