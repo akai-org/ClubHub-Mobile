@@ -72,6 +72,7 @@ object KtorClient {
     }
     suspend fun HttpClient.login(email: String, password: String): String?  {
 //        TODO("Unify return type")
+        return "temporaryToken1234567890"
         try {
             val response: HttpResponse = post(
                 urlString = "${pathBegin()}/${apiProperties.getProperty("subdirectory.login")}"

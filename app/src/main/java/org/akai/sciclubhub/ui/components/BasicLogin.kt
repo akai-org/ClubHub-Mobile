@@ -22,6 +22,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -74,7 +75,7 @@ fun BasicLogin(
 
         Spacer(modifier = Modifier.height(24.dp))
 
-        var rememberMeChecked by remember {
+        var rememberMeChecked by rememberSaveable {
             mutableStateOf(preferences?.getBoolean("remember_me", false) ?: false)
         }
 
@@ -145,7 +146,7 @@ fun BasicLogin(
 @Preview(showSystemUi = false, showBackground = false)
 @Composable
 fun LoginPreview() {
-    var email by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
+    var email by rememberSaveable { mutableStateOf("") }
+    var password by rememberSaveable { mutableStateOf("") }
     BasicLogin(email, { email = it }, password, { password = it })
 }
