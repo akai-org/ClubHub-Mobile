@@ -53,9 +53,8 @@ fun LoginScreen(
             afterLoginSuccess = {
                 preferences?.edit()?.putString("user_email", email)?.apply()
                 preferences?.edit()?.putString("user_password", password)?.apply()
-            }.also {
                 afterLoginSuccess()
-            } as () -> Unit,
+            },
             forgotPasswordAction = forgotPasswordAction
         )
 
