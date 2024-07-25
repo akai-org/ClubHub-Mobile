@@ -1,16 +1,12 @@
 <resources>
-    <string name="app_name">SciClubHub</string>
+    <string name="app_name" translatable="false">SciClubHub</string>
     <string name="password_text_field_label">Password</string>
     <string name="email_text_field_label">Email</string>
     <string name="remember_me_text">Remember me</string>
     <string name="login_button_text">Login</string>
-    <string name="sign_in_view_destination">sign_in_view</string>
-    <string name="confirmed_destination">confirmed</string>
-    <string name="sign_up_view_destination">sign_up_view</string>
-    <string name="password_recovery_view_destination">password_recovery_view</string>
-    <string name="user_sign_in_preferences">sign_in</string>
-    <string name="home_view_destination">home_view</string>
-    <string name="user_account_view_destination">user_view</string>
-    <string name="chat_view_destination">message_view</string>
-    <string name="calendar_view_destination">calendar_view</string>
+    <string name="events_path">/event</string>
+    <string name="organiser_types_path">organiser_types</string>
+    <string name="join_path">join</string>
+
+
 </resources>

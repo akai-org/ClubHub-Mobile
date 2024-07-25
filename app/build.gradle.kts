@@ -51,17 +51,28 @@ android {
 }
 
 dependencies {
+    //room
     implementation(libs.androidx.room.runtime)
     annotationProcessor(libs.androidx.room.compiler)
     ksp(libs.androidx.room.compiler)
     implementation(libs.room.ktx)
+
+    //coroutines
     implementation(libs.kotlinx.coroutines.android)
-    implementation(libs.androidx.navigation.compose)
-    implementation(libs.androidx.preference.ktx)
+//    implementation(libs.kotlinx.coroutines.core)
+
+    //ktor
+//    implementation(libs.ktor.client.core)
+//    implementation(libs.ktor.client.okhttp)
     implementation(libs.ktor.ktor.client.android)
     implementation(libs.ktor.client.serialization)
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.ktor.client.logging.jvm)
+//    implementation(libs.logback.classic)
+
+    //base
+    implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.preference.ktx)
     implementation(libs.androidx.material.icons.extended)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -71,6 +82,8 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+
+    //test
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

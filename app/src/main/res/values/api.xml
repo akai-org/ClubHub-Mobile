@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="api_clubhub_domain" translatable="false">api.clubhub.org</string>
+    <string name="login_path" translatable="false">login</string>
+    <string name="register_path" translatable="false">register</string>
+    <string name="account_path" translatable="false">account</string>
+    <string name="universities_path" translatable="false">universities</string>
+</resources>

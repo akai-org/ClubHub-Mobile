@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="sign_in_view_destination" translatable="false">sign_in_view</string>
+    <string name="confirmed_destination" translatable="false">confirmed</string>
+    <string name="sign_up_view_destination" translatable="false">sign_up_view</string>
+    <string name="password_recovery_view_destination" translatable="false">password_recovery_view</string>
+    <string name="user_sign_in_preferences" translatable="false">sign_in</string>
+    <string name="home_view_destination" translatable="false">home_view</string>
+    <string name="user_account_view_destination" translatable="false">user_view</string>
+    <string name="chat_view_destination" translatable="false">message_view</string>
+    <string name="calendar_view_destination" translatable="false">calendar_view</string>
+</resources>
