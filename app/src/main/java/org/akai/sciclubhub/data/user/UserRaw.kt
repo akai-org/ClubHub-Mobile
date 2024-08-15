@@ -1,4 +1,4 @@
-package org.akai.sciclubhub.data
+package org.akai.sciclubhub.data.user
 
 data class UserRaw (
     val uuid: String,

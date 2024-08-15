@@ -1,5 +1,6 @@
-package org.akai.sciclubhub.data
+package org.akai.sciclubhub.data.meeting
 
+import org.akai.sciclubhub.data.UUID
 import java.time.Instant
 
 data class Meeting (

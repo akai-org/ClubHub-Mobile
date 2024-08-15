@@ -1,4 +1,4 @@
-package org.akai.sciclubhub.data
+package org.akai.sciclubhub.data.event
 
 data class EventOrganiserType(
     val uuid: String,

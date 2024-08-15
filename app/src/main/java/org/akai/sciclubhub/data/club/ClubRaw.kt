@@ -1,4 +1,6 @@
-package org.akai.sciclubhub.data
+package org.akai.sciclubhub.data.club
+
+import org.akai.sciclubhub.data.member.MemberRaw
 
 data class ClubRaw(
     val uuid: String,

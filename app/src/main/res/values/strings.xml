@@ -4,9 +4,4 @@
     <string name="email_text_field_label">Email</string>
     <string name="remember_me_text">Remember me</string>
     <string name="login_button_text">Login</string>
-    <string name="events_path">/event</string>
-    <string name="organiser_types_path">organiser_types</string>
-    <string name="join_path">join</string>
-
-
 </resources>

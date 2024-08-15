@@ -1,6 +1,7 @@
 package org.akai.sciclubhub.ui.components
 
 import android.content.SharedPreferences
+import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -32,10 +33,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import io.ktor.client.HttpClient
 import kotlinx.coroutines.launch
 import org.akai.sciclubhub.R
-import org.akai.sciclubhub.ktor.KtorClient.login
+import org.akai.sciclubhub.clubhubclient.Authorized
+import org.akai.sciclubhub.clubhubclient.queries.authorize
+import org.akai.sciclubhub.data.UUID
 
 @Composable
 fun BasicLogin(
@@ -45,8 +47,7 @@ fun BasicLogin(
     onPasswordChange: (String) -> Unit,
     modifier: Modifier = Modifier,
     preferences: SharedPreferences? = null,
-    client: HttpClient? = null,
-    afterLoginSuccess: () -> Unit = {},
+    afterLoginSuccess: (Authorized) -> Unit = {},
     forgotPasswordAction: () -> Unit = {}
 ){
     Column(
@@ -99,10 +100,29 @@ fun BasicLogin(
             onClick = {
                 isLoading = true
                 coroutineScope.launch {
-                    client?.login(email, password).let {
-                        preferences?.edit()?.putBoolean("remember_me", rememberMeChecked)?.apply()
-                        preferences?.edit()?.putString("user_token", it)?.apply()
-                        afterLoginSuccess()
+                    try {
+                        authorize(email, password).let {
+                            preferences
+                                ?.edit()
+                                ?.putBoolean("remember_me", rememberMeChecked)
+                                ?.apply()
+
+                            preferences
+                                ?.edit()
+                                ?.putString("user_token", it.token)
+                                ?.apply()
+
+                            preferences
+                                ?.edit()
+                                ?.putString("user_uuid", it.uuid.value)
+                                ?.apply()
+
+                            afterLoginSuccess(it)
+                        }
+                    } catch (e: Exception) {
+                        Log.e("Login", "Login failed: ${e.message}", e)
+                        //todo dev only
+                        afterLoginSuccess(Authorized(uuid = UUID.randomUUID(), token = "test"))
                     }
                 }
             },

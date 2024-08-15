@@ -3,6 +3,10 @@ package org.akai.sciclubhub.ui.components
 import android.content.Context
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -11,7 +15,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import org.akai.sciclubhub.R
-import org.akai.sciclubhub.ktor.KtorClient
+import org.akai.sciclubhub.clubhubclient.Authorized
 
 @Composable
 fun VerificationNavScreen(
@@ -20,25 +24,24 @@ fun VerificationNavScreen(
 ) {
     val context = LocalContext.current
 
-    val apiClient = KtorClient.getClient(context.assets)
-
-
     val preferences =
             context.getSharedPreferences(
                 context.getString(R.string.user_sign_in_preferences),
                 Context.MODE_PRIVATE
             )
 
+    var authorization by remember { mutableStateOf<Authorized?>(null) }
+
 
     NavHost(navController = navController, startDestination = stringResource(R.string.sign_in_view_destination)) {
         composable(context.getString(R.string.sign_in_view_destination)) {
             LoginScreen(
                 preferences = preferences,
-                client = apiClient,
                 afterLoginSuccess = { 
                     navController.navigate(context.getString(R.string.confirmed_destination)) {
                         launchSingleTop = true
-                    } 
+                    }
+                    authorization = it
                 }
             )
         }
@@ -50,8 +53,7 @@ fun VerificationNavScreen(
         }
         composable(context.getString(R.string.confirmed_destination)) {
             MainNavScreen(
-                client = apiClient,
-                preferences = preferences
+                authorization = authorization!!
             )
         }
     }
@@ -59,7 +61,7 @@ fun VerificationNavScreen(
 
 @Preview
 @Composable
-fun NavScreenPreview() {
+fun VerificationNavScreenPreview() {
     val navController = rememberNavController()
     VerificationNavScreen(
         navController = navController ,

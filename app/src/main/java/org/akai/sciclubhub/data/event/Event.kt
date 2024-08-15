@@ -1,5 +1,6 @@
-package org.akai.sciclubhub.data
+package org.akai.sciclubhub.data.event
 
+import org.akai.sciclubhub.data.UUID
 import java.time.Instant
 
 data class Event(
