@@ -18,7 +18,7 @@ import org.akai.sciclubhub.R
 fun OutlinedPasswordField(
     value: String,
     onValueChange: (String) -> Unit,
-    isError: Boolean = value.isNotBlank() && !value.matches(Regex(".+@.+\\..{2,6}")),
+    isError: Boolean = value.isNotBlank() && value.length < 8,
     trailingIcon: @Composable (() -> Unit)? = {
         Icon(
             imageVector = Icons.Rounded.Lock,

@@ -24,14 +24,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import io.ktor.client.HttpClient
+import org.akai.sciclubhub.clubhubclient.Authorized
 
 @Composable
 fun LoginScreen(
     modifier: Modifier = Modifier,
     preferences: SharedPreferences?,
-    client: HttpClient? = null,
-    afterLoginSuccess: () -> Unit = {},
+    afterLoginSuccess: (Authorized) -> Unit = {},
     forgotPasswordAction: () -> Unit = {}
 ) {
     Column(
@@ -49,11 +48,10 @@ fun LoginScreen(
             onPasswordChange = { password = it },
             modifier = modifier,
             preferences = preferences,
-            client = client,
             afterLoginSuccess = {
                 preferences?.edit()?.putString("user_email", email)?.apply()
                 preferences?.edit()?.putString("user_password", password)?.apply()
-                afterLoginSuccess()
+                afterLoginSuccess(it)
             },
             forgotPasswordAction = forgotPasswordAction
         )

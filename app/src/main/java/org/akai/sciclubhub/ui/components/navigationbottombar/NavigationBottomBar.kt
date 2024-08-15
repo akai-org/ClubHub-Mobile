@@ -39,13 +39,15 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import org.akai.sciclubhub.R
+import org.akai.sciclubhub.ui.components.PlaceHolderView
 
 @Composable
 fun NavigationBottomBar(
-    navController: NavHostController
+    navController: NavHostController,
+    onClickActions: List<() -> Unit>
 ) {
     val context = LocalContext.current
-    var focusedIndex by rememberSaveable { mutableIntStateOf(0) }
+    var focusedIndex by rememberSaveable { mutableIntStateOf(1) }
     val iconList = iconList(context)
 
     val colorSchema  = MaterialTheme.colorScheme
@@ -54,7 +56,8 @@ fun NavigationBottomBar(
         modifier = Modifier
             .fillMaxWidth()
             .drawBehind {
-                maxWidth = size.width}) {
+                maxWidth = size.width
+            }) {
     }
 
     val firstBlockWidth by animateFloatAsState (
@@ -140,6 +143,10 @@ fun NavigationBottomBar(
                     .size(size = 70.dp),
                 onClick = {
                     focusedIndex = index
+
+                    if (index < onClickActions.size)
+                        onClickActions[index]()
+
                     navController.navigate(icon.destination)
                 }
             )  {
@@ -159,7 +166,6 @@ fun NavigationBottomBar(
             }
         }
     }
-
 }
 
 private fun iconList(context: Context) = listOf(
@@ -181,7 +187,7 @@ private fun iconList(context: Context) = listOf(
     BottomBarIcon(
         selectedIcon = Icons.Filled.CalendarToday,
         unselectedIcon = Icons.Outlined.CalendarToday,
-        destination = context.getString(R.string.user_account_view_destination)
+        destination = context.getString(R.string.calendar_view_destination)
     )
 )
 
@@ -190,9 +196,14 @@ private fun iconList(context: Context) = listOf(
 fun NavigationBottomBarPreview() {
     Scaffold(
         bottomBar = {
-            NavigationBottomBar(navController = NavHostController(LocalContext.current))
+            NavigationBottomBar(
+                navController = NavHostController(LocalContext.current),
+                onClickActions = listOf(
+                    {}, {}, {}, {}
+                )
+            )
         }
-    ) {
-
+    ) { innerPadding ->
+        PlaceHolderView(title = innerPadding.toString())
     }
 }
